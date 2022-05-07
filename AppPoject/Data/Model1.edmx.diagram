@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="02b257058a3c4f999a4d812c654d9449" Name="Diagram1">
+        <EntityTypeShape EntityType="gestion_de_stockModel.brande" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestion_de_stockModel.category" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestion_de_stockModel.costumer" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestion_de_stockModel.funded" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestion_de_stockModel.order" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestion_de_stockModel.product" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestion_de_stockModel.store" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestion_de_stockModel.transfer_details" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestion_de_stockModel.type_user" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestion_de_stockModel.user" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_brandes" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_product_category" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_costumer_order" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_funded_product" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_product_order" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_user_order" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_product_transform_store" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_store_product" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_store_from" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_store_to_store" ManuallyRouted="false" />
+        <AssociationConnector Association="gestion_de_stockModel.fk_user_type" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

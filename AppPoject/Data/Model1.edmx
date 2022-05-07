@@ -1,0 +1,800 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="gestion_de_stockModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="brande">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="image" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="costumer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="adderss" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="funded">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="adderss" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_product" Type="int" />
+          <Property Name="id_costumer" Type="int" />
+          <Property Name="id_user" Type="int" />
+          <Property Name="pay_type" Type="nvarchar" MaxLength="200" />
+          <Property Name="price_sall_final" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="200" />
+          <Property Name="created_at" Type="date" Nullable="false" />
+          <Property Name="end_in" Type="date" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code_bar" Type="nvarchar" MaxLength="200" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="description" Type="nvarchar" MaxLength="200" />
+          <Property Name="product_image" Type="nvarchar" MaxLength="255" />
+          <Property Name="price_bay" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="price_sall" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="quntity" Type="int" Nullable="false" />
+          <Property Name="created_at" Type="date" Nullable="false" />
+          <Property Name="id_category" Type="int" />
+          <Property Name="id_brande" Type="int" />
+          <Property Name="id_store" Type="int" />
+          <Property Name="id_funded" Type="int" />
+        </EntityType>
+        <EntityType Name="store">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="transfer_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="store_from" Type="int" Nullable="false" />
+          <Property Name="store_to" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="transform_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="type_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="adderss" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="date_burth" Type="date" Nullable="false" />
+          <Property Name="type_user" Type="int" />
+        </EntityType>
+        <Association Name="fk_brandes">
+          <End Role="brande" Type="Self.brande" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="brande">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_brande" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_costumer_order">
+          <End Role="costumer" Type="Self.costumer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="costumer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="id_costumer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_funded_product">
+          <End Role="funded" Type="Self.funded" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="funded">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_funded" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_category">
+          <End Role="category" Type="Self.category" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_order">
+          <End Role="product" Type="Self.product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_transform_store">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="transfer_details" Type="Self.transfer_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transfer_details">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_store_from">
+          <End Role="store" Type="Self.store" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="transfer_details" Type="Self.transfer_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transfer_details">
+              <PropertyRef Name="store_from" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_store_product">
+          <End Role="store" Type="Self.store" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_store" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_store_to_store">
+          <End Role="store" Type="Self.store" Multiplicity="1" />
+          <End Role="transfer_details" Type="Self.transfer_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transfer_details">
+              <PropertyRef Name="store_to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_order">
+          <End Role="user" Type="Self.user" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_type">
+          <End Role="type_user" Type="Self.type_user" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="type_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gestion_de_stockModelStoreContainer">
+          <EntitySet Name="brande" EntityType="Self.brande" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="costumer" EntityType="Self.costumer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="funded" EntityType="Self.funded" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="store" EntityType="Self.store" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transfer_details" EntityType="Self.transfer_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="type_user" EntityType="Self.type_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_brandes" Association="Self.fk_brandes">
+            <End Role="brande" EntitySet="brande" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="fk_costumer_order" Association="Self.fk_costumer_order">
+            <End Role="costumer" EntitySet="costumer" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_funded_product" Association="Self.fk_funded_product">
+            <End Role="funded" EntitySet="funded" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_category" Association="Self.fk_product_category">
+            <End Role="category" EntitySet="category" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_order" Association="Self.fk_product_order">
+            <End Role="product" EntitySet="product" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_transform_store" Association="Self.fk_product_transform_store">
+            <End Role="product" EntitySet="product" />
+            <End Role="transfer_details" EntitySet="transfer_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_store_from" Association="Self.fk_store_from">
+            <End Role="store" EntitySet="store" />
+            <End Role="transfer_details" EntitySet="transfer_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_store_product" Association="Self.fk_store_product">
+            <End Role="store" EntitySet="store" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="fk_store_to_store" Association="Self.fk_store_to_store">
+            <End Role="store" EntitySet="store" />
+            <End Role="transfer_details" EntitySet="transfer_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_order" Association="Self.fk_user_order">
+            <End Role="user" EntitySet="user" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_type" Association="Self.fk_user_type">
+            <End Role="type_user" EntitySet="type_user" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gestion_de_stockModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="brande">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.fk_brandes" FromRole="brande" ToRole="product" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="products" Relationship="Self.fk_product_category" FromRole="category" ToRole="product" />
+        </EntityType>
+        <EntityType Name="costumer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adderss" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_costumer_order" FromRole="costumer" ToRole="order" />
+        </EntityType>
+        <EntityType Name="funded">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adderss" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="products" Relationship="Self.fk_funded_product" FromRole="funded" ToRole="product" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_product" Type="Int32" />
+          <Property Name="id_costumer" Type="Int32" />
+          <Property Name="id_user" Type="Int32" />
+          <Property Name="pay_type" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="price_sall_final" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_in" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="costumer" Relationship="Self.fk_costumer_order" FromRole="order" ToRole="costumer" />
+          <NavigationProperty Name="product" Relationship="Self.fk_product_order" FromRole="order" ToRole="product" />
+          <NavigationProperty Name="user" Relationship="Self.fk_user_order" FromRole="order" ToRole="user" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code_bar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="product_image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="price_bay" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="price_sall" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="quntity" Type="Int32" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_category" Type="Int32" />
+          <Property Name="id_brande" Type="Int32" />
+          <Property Name="id_store" Type="Int32" />
+          <Property Name="id_funded" Type="Int32" />
+          <NavigationProperty Name="brande" Relationship="Self.fk_brandes" FromRole="product" ToRole="brande" />
+          <NavigationProperty Name="category" Relationship="Self.fk_product_category" FromRole="product" ToRole="category" />
+          <NavigationProperty Name="funded" Relationship="Self.fk_funded_product" FromRole="product" ToRole="funded" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_product_order" FromRole="product" ToRole="order" />
+          <NavigationProperty Name="transfer_details" Relationship="Self.fk_product_transform_store" FromRole="product" ToRole="transfer_details" />
+          <NavigationProperty Name="store" Relationship="Self.fk_store_product" FromRole="product" ToRole="store" />
+        </EntityType>
+        <EntityType Name="store">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="products" Relationship="Self.fk_store_product" FromRole="store" ToRole="product" />
+          <NavigationProperty Name="transfer_details" Relationship="Self.fk_store_from" FromRole="store" ToRole="transfer_details" />
+          <NavigationProperty Name="transfer_details1" Relationship="Self.fk_store_to_store" FromRole="store" ToRole="transfer_details" />
+        </EntityType>
+        <EntityType Name="transfer_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="store_from" Type="Int32" Nullable="false" />
+          <Property Name="store_to" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="transform_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="product" Relationship="Self.fk_product_transform_store" FromRole="transfer_details" ToRole="product" />
+          <NavigationProperty Name="store" Relationship="Self.fk_store_from" FromRole="transfer_details" ToRole="store" />
+          <NavigationProperty Name="store1" Relationship="Self.fk_store_to_store" FromRole="transfer_details" ToRole="store" />
+        </EntityType>
+        <EntityType Name="type_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.fk_user_type" FromRole="type_user" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adderss" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date_burth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="type_user" Type="Int32" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_user_order" FromRole="user" ToRole="order" />
+          <NavigationProperty Name="type_user1" Relationship="Self.fk_user_type" FromRole="user" ToRole="type_user" />
+        </EntityType>
+        <Association Name="fk_brandes">
+          <End Role="brande" Type="Self.brande" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="brande">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_brande" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_category">
+          <End Role="category" Type="Self.category" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_costumer_order">
+          <End Role="costumer" Type="Self.costumer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="costumer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="id_costumer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_funded_product">
+          <End Role="funded" Type="Self.funded" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="funded">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_funded" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_order">
+          <End Role="product" Type="Self.product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_order">
+          <End Role="user" Type="Self.user" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_transform_store">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="transfer_details" Type="Self.transfer_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transfer_details">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_store_product">
+          <End Role="store" Type="Self.store" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_store" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_store_from">
+          <End Role="store" Type="Self.store" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="transfer_details" Type="Self.transfer_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transfer_details">
+              <PropertyRef Name="store_from" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_store_to_store">
+          <End Role="store" Type="Self.store" Multiplicity="1" />
+          <End Role="transfer_details" Type="Self.transfer_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="store">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transfer_details">
+              <PropertyRef Name="store_to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_type">
+          <End Role="type_user" Type="Self.type_user" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="type_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gestion_de_stockEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="brandes" EntityType="Self.brande" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="costumers" EntityType="Self.costumer" />
+          <EntitySet Name="fundeds" EntityType="Self.funded" />
+          <EntitySet Name="orders" EntityType="Self.order" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="stores" EntityType="Self.store" />
+          <EntitySet Name="transfer_details" EntityType="Self.transfer_details" />
+          <EntitySet Name="type_user" EntityType="Self.type_user" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="fk_brandes" Association="Self.fk_brandes">
+            <End Role="brande" EntitySet="brandes" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_category" Association="Self.fk_product_category">
+            <End Role="category" EntitySet="categories" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_costumer_order" Association="Self.fk_costumer_order">
+            <End Role="costumer" EntitySet="costumers" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_funded_product" Association="Self.fk_funded_product">
+            <End Role="funded" EntitySet="fundeds" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_order" Association="Self.fk_product_order">
+            <End Role="product" EntitySet="products" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_order" Association="Self.fk_user_order">
+            <End Role="user" EntitySet="users" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_transform_store" Association="Self.fk_product_transform_store">
+            <End Role="product" EntitySet="products" />
+            <End Role="transfer_details" EntitySet="transfer_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_store_product" Association="Self.fk_store_product">
+            <End Role="store" EntitySet="stores" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_store_from" Association="Self.fk_store_from">
+            <End Role="store" EntitySet="stores" />
+            <End Role="transfer_details" EntitySet="transfer_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_store_to_store" Association="Self.fk_store_to_store">
+            <End Role="store" EntitySet="stores" />
+            <End Role="transfer_details" EntitySet="transfer_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_type" Association="Self.fk_user_type">
+            <End Role="type_user" EntitySet="type_user" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gestion_de_stockModelStoreContainer" CdmEntityContainer="gestion_de_stockEntities2">
+          <EntitySetMapping Name="brandes">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.brande">
+              <MappingFragment StoreEntitySet="brande">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="costumers">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.costumer">
+              <MappingFragment StoreEntitySet="costumer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="adderss" ColumnName="adderss" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fundeds">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.funded">
+              <MappingFragment StoreEntitySet="funded">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="adderss" ColumnName="adderss" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.order">
+              <MappingFragment StoreEntitySet="order">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="id_costumer" ColumnName="id_costumer" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="pay_type" ColumnName="pay_type" />
+                <ScalarProperty Name="price_sall_final" ColumnName="price_sall_final" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="end_in" ColumnName="end_in" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code_bar" ColumnName="code_bar" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="product_image" ColumnName="product_image" />
+                <ScalarProperty Name="price_bay" ColumnName="price_bay" />
+                <ScalarProperty Name="price_sall" ColumnName="price_sall" />
+                <ScalarProperty Name="quntity" ColumnName="quntity" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="id_category" ColumnName="id_category" />
+                <ScalarProperty Name="id_brande" ColumnName="id_brande" />
+                <ScalarProperty Name="id_store" ColumnName="id_store" />
+                <ScalarProperty Name="id_funded" ColumnName="id_funded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stores">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.store">
+              <MappingFragment StoreEntitySet="store">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transfer_details">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.transfer_details">
+              <MappingFragment StoreEntitySet="transfer_details">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="store_from" ColumnName="store_from" />
+                <ScalarProperty Name="store_to" ColumnName="store_to" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="transform_date" ColumnName="transform_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="type_user">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.type_user">
+              <MappingFragment StoreEntitySet="type_user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="gestion_de_stockModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="adderss" ColumnName="adderss" />
+                <ScalarProperty Name="date_burth" ColumnName="date_burth" />
+                <ScalarProperty Name="type_user" ColumnName="type_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
